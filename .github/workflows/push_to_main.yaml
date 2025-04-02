@@ -58,6 +58,10 @@ jobs:
   update_gh_pages:
     runs-on: ubuntu-latest
     needs: run_tests_and_update_image_and_coverage_report
+    permissions:
+      contents: read
+      packages: write
+      id-token: write
 
     steps:
       - name: Download latest test coverage report
