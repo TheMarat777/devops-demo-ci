@@ -1,5 +1,7 @@
-# A workflow runs all tests and creates/updates Docker image
-name: Run tests and update image
+# This workflow is triggered on push to the main branch and on pull requests
+# to the main branch. It runs all tests, builds a Docker image, and deploys
+# the test coverage report to GitHub Pages.
+name: Run tests and update image and coverage report
 
 on:
   workflow_dispatch:
@@ -53,7 +55,7 @@ jobs:
           docker push ${image_tag}
 
       - name: Download latest test coverage report
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: test-coverage-report
           path: coverage
