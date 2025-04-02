@@ -55,6 +55,11 @@ jobs:
           docker build . --tag ${image_tag}
           docker push ${image_tag}
 
+  update_gh_pages:
+    runs-on: ubuntu-latest
+    needs: run_tests_and_update_image_and_coverage_report
+
+    steps:
       - name: Download latest test coverage report
         uses: actions/download-artifact@v4
         with:
