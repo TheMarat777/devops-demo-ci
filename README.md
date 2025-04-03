@@ -1,54 +1,71 @@
-# DevOps Demo CI
+# 🚀 DevOps Demo CI
 
-This is a simple Spring Boot application that demonstrates basic DevOps practices. It includes unit testing, code coverage, a CI pipeline with GitHub Actions, and deployment using Docker on Render.
+[![CI](https://github.com/TheMarat777/devops-demo-ci/actions/workflows/ci.yml/badge.svg)](https://github.com/TheMarat777/devops-demo-ci/actions/workflows/ci.yml)
 
-## Tech Stack
+A lightweight Spring Boot project demonstrating modern DevOps practices — including CI/CD, testing, code coverage, and Docker-based deployment.
 
-- Java 21 (Spring Boot)
-- Maven
-- Docker
-- GitHub Actions
-- JaCoCo (for test coverage)
-- Render (for deployment)
+## 🛠 Tech Stack
 
-## API
+- Java 21 with Spring Boot  
+- Maven  
+- Docker  
+- GitHub Actions (CI/CD)  
+- JaCoCo (test coverage)  
+- Render (cloud deployment)
 
-| Method | Endpoint                                  | Description                          |
-|--------|-------------------------------------------|--------------------------------------|
-| GET    | `/members/{memberId}/tasks/{taskId}`      | Returns a task by ID for a member    |
+## 📦 API Endpoint
 
-Example:
+```http
+GET /members/{memberId}/tasks/{taskId}
+```
+
+### Example:
 
 ```bash
 curl https://devops-demo-f8om.onrender.com/members/Member1/tasks/Task1
+```
 
-Running Locally
+## 🧪 Running & Testing Locally
 
 To run the app locally:
 
+```bash
 ./mvnw spring-boot:run
+```
 
-Testing
+To run tests and generate the code coverage report:
 
-Run tests and generate coverage report:
-
+```bash
 ./mvnw test
 ./mvnw jacoco:report
-Coverage report will be at:
+```
+
+Then open the coverage report in a browser:
+
+```
 target/site/jacoco/index.html
+```
 
-Docker
+## 🐳 Docker
 
-To build and run with Docker:
+To build and run the app using Docker:
 
+```bash
 docker build -t devops-demo .
 docker run -p 8080:8080 devops-demo
-CI/CD
+```
 
-A GitHub Actions workflow is set up to run tests and generate code coverage on every push to the main branch.
+## ⚙️ CI/CD
 
-Deployment
+This project uses GitHub Actions to automatically:
 
-The app is deployed on Render:
-👉 https://devops-demo-f8om.onrender.com
+- Run tests on each push to the `main` branch
+- Generate a code coverage report with JaCoCo
+
+Workflow file: `.github/workflows/ci.yml`
+
+## 🌍 Live Demo
+
+App is deployed on **Render** and available here:  
+🔗 https://devops-demo-f8om.onrender.com
 
