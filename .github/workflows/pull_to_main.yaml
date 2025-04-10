@@ -39,6 +39,6 @@ jobs:
         kubectl apply -f db-deployment.yaml
         kubectl apply -f db-service.yaml
         kubectl apply -f db-persistentvolumeclaim.yaml
-        minikube kubectl -- rollout status deployment backend --timeout=60s
-        minikube kubectl -- rollout status deployment db --timeout=60s
+        kubectl rollout status deployment backend --timeout=60s
+        kubectl rollout status deployment db --timeout=60s
         kubectl get all
