@@ -1,0 +1,44 @@
+name: CI/CD Pipeline
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Setup Java
+      uses: actions/setup-java@v3
+      with:
+        distribution: 'temurin'
+        java-version: '17'
+
+    - name: Build with Maven
+      run: mvn clean package --file pom.xml
+
+    - name: Setup Minikube
+      uses: medyagh/setup-minikube@latest
+
+    - name: Check Minikube Status
+      run: minikube kubectl get pods -- -A
+
+    - name: Build Docker image inside Minikube
+      run: |
+        eval $(minikube -p minikube docker-env)
+        minikube image build -t devops-demo-cd:v1.0.0 .
+
+    - name: Deploy to Minikube
+      run: |
+        cd k8s
+        kubectl apply -f backend-deployment.yaml
+        kubectl apply -f backend-service.yaml
+        kubectl apply -f db-deployment.yaml
+        kubectl apply -f db-service.yaml
+        kubectl apply -f db-persistentvolumeclaim.yaml
+        minikube kubectl rollout status deployment backend --timeout=60s
+        minikube kubectl rollout status deployment db --timeout=60s
+        kubectl get all

@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: backend
+  template:
+    metadata:
+      labels:
+        app: backend
+    spec:
+      containers:
+      - name: backend
+        image: devops-demo-cd:v1.0.0
+        ports:
+        - containerPort: 8080
+        env:
+        - name: SPRING_DATASOURCE_URL
+          value: jdbc:postgresql://db:5432/taskdb
+        - name: SPRING_DATASOURCE_USERNAME
+          value: postgres
+        - name: SPRING_DATASOURCE_PASSWORD
+          value: postgres
