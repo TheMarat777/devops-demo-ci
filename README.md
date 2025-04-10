@@ -1,9 +1,32 @@
-# DOC1 Dev Container - CI/CD for Spring Boot Applications
+# DevOps Demo Project — DOC1 Assignment
 
-[Click here](https://dafessor.github.io/devops-demo-ci/) to see the test coverage for the latest version on the main branch.
+Spring Boot + PostgreSQL project with full CI/CD pipeline using Docker, Kubernetes, Minikube, and GitHub Actions.
 
-1. Open Visual Studio Code
-2. Use the command pallete(Ctrl + Shift + P): Click "Git:Clone..."
-3. Paste the URL: https://github.com/DaFessor/devops-demo-ci.git
-4. Allow Visual Studio Code to do the cloning, and then reopen in a dev container
-5. Click to allow reopening in a dev container
+## Tech Stack
+- Java 17 (Spring Boot)
+- PostgreSQL
+- Docker & Docker Compose
+- Kubernetes (Minikube)
+- GitHub Actions (CI/CD)
+
+## Pipelines
+
+### CI → .github/workflows/push_to_main.yml
+- Run tests  
+- Generate test coverage  
+- Build & Push Docker image to GitHub Container Registry  
+
+### CD → .github/workflows/pull_to_main.yml
+- Deploy app to Minikube  
+- Apply Kubernetes configs from k8s/  
+- Rollout backend & database  
+
+## Run Locally
+docker-compose up --build
+
+## Deploy to Minikube
+minikube start  
+eval $(minikube docker-env)  
+docker build -t devops-demo-cd:v1.0.0 .  
+kubectl apply -f k8s/  
+kubectl get all  
