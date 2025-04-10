@@ -31,14 +31,15 @@ jobs:
         eval $(minikube -p minikube docker-env)
         minikube image build -t devops-demo-cd:v1.0.0 .
 
-    - name: Deploy to Minikube
-      run: |
-        cd k8s
-        kubectl apply -f backend-deployment.yaml
-        kubectl apply -f backend-service.yaml
-        kubectl apply -f db-deployment.yaml
-        kubectl apply -f db-service.yaml
-        kubectl apply -f db-persistentvolumeclaim.yaml
-        kubectl rollout status deployment backend --timeout=60s
-        kubectl rollout status deployment db --timeout=60s
-        kubectl get all
+        - name: Deploy to Minikube
+        run: |
+          cd k8s
+          kubectl apply -f backend-deployment.yaml
+          kubectl apply -f backend-service.yaml
+          kubectl apply -f db-deployment.yaml
+          kubectl apply -f db-service.yaml
+          kubectl apply -f db-persistentvolumeclaim.yaml
+          kubectl rollout status deployment/backend --timeout=60s
+          kubectl rollout status deployment/db --timeout=60s
+          kubectl get all
+      
